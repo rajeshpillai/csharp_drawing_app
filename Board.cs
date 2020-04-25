@@ -55,6 +55,11 @@ namespace MyPaint_CSharp
                 currentShape = new Ellipse();
 
             }
+            else if (shape == "line")
+            {
+                currentShape = new Line();
+            }
+
             currentShape.StartPoint = new Point(x, y);
             currentShape.EndPoint = new Point(e.X - x, e.Y - y);
 
@@ -71,20 +76,17 @@ namespace MyPaint_CSharp
                 ex = e.X;
                 ey = e.Y;
 
-                currentShape.EndPoint = new Point(e.X - x, e.Y - y);
+                if (shape == "line")
+                {
+                    currentShape.EndPoint = new Point(e.X , e.Y);
+                } 
+                else
+                {
+                    currentShape.EndPoint = new Point(e.X - x, e.Y - y);
+                }
 
                 canvas.Invalidate();
-            } else
-            {
-                // Draw Line
-                // Set Pen Back color and Line Width
-                /*Pen p = new Pen(new SolidBrush(Color.Red), 2);
-
-                // Draw line
-                g.DrawLine(p, new Point(x, y), new Point(e.X, e.Y));
-                x = e.X;
-                y = e.Y;*/
-            }
+            } 
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
@@ -120,6 +122,11 @@ namespace MyPaint_CSharp
         private void btnEllipse_Click(object sender, EventArgs e)
         {
             shape = "ellipse";
+        }
+
+        private void btnPen_Click(object sender, EventArgs e)
+        {
+            shape = "line";
         }
     }
 }
