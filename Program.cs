@@ -16,7 +16,7 @@ namespace MyPaint_CSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMyPaint());
+            Application.Run(new Board());
         }
     }
 }

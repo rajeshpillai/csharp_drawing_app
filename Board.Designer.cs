@@ -1,6 +1,6 @@
 ﻿namespace MyPaint_CSharp
 {
-    partial class frmMyPaint
+    partial class Board
     {
         /// <summary>
         /// Required designer variable.
@@ -74,7 +74,7 @@
             this.lblFooter.Size = new System.Drawing.Size(817, 23);
             this.lblFooter.TabIndex = 2;
             // 
-            // frmMyPaint
+            // Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -82,7 +82,7 @@
             this.Controls.Add(this.lblFooter);
             this.Controls.Add(this.btnRectangle);
             this.Controls.Add(this.canvas);
-            this.Name = "frmMyPaint";
+            this.Name = "Board";
             this.Text = "MyPaint";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMyPaint_Load);

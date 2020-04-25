@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MyPaint_CSharp.Shapes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,7 @@ using System.Windows.Forms;
 
 namespace MyPaint_CSharp
 {
-    public partial class frmMyPaint : Form
+    public partial class Board : Form
     {
         string shape = "rectangle";
         bool startPaint = false;
@@ -21,7 +23,11 @@ namespace MyPaint_CSharp
 
         Graphics g;
 
-        public frmMyPaint()
+        List<Shape> shapes = new List<Shape>();
+
+        Shape currentShape = new Box();
+
+        public Board()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -46,6 +52,13 @@ namespace MyPaint_CSharp
                 x = e.X;
                 y = e.Y;
 
+                currentShape = new Box();
+                currentShape.StartPoint = new Point(x, y);
+                currentShape.EndPoint = new Point(e.X - x, e.Y - y);
+
+                shapes.Add(currentShape);
+
+
             }
         }
 
@@ -57,6 +70,8 @@ namespace MyPaint_CSharp
             {
                 ex = e.X;
                 ey = e.Y;
+
+                currentShape.EndPoint = new Point(e.X - x, e.Y - y);
 
                 canvas.Invalidate();
             } else
@@ -75,16 +90,24 @@ namespace MyPaint_CSharp
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             startPaint = false;
+
+            
             x = -1;
             y = -1;
             shape = "";
-        }
 
+            currentShape = null;
+        }
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
             g.Clear(Color.White);
             SolidBrush sb = new SolidBrush(Color.Yellow);
-            g.FillRectangle(sb, x, y, ex - x, ey - y);
+            //g.FillRectangle(sb, x, y, ex - x, ey - y);
+
+            foreach (var s in shapes)
+            {
+                s.Paint(g);   
+            }
         }
 
         private void frmMyPaint_Load(object sender, EventArgs e)
