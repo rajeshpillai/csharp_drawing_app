@@ -18,8 +18,6 @@ namespace MyPaint_CSharp
         bool startPaint = false;
         int x = 0;
         int y = 0;
-        int ex = 0;
-        int ey = 0;
 
         List<Shape> shapes = new List<Shape>();
 
@@ -76,8 +74,6 @@ namespace MyPaint_CSharp
 
             if (startPaint && shape != "")
             {
-                ex = e.X;
-                ey = e.Y;
 
                 if (shape == "line")
                 {
@@ -138,14 +134,12 @@ namespace MyPaint_CSharp
         private void btnPencil_Click(object sender, EventArgs e)
         {
             shape = "pencil";
-
-           
         }
 
         private void btnColorDialog_Click(object sender, EventArgs e)
         {
             ColorDialog colorDlg = new ColorDialog();
-            colorDlg.AllowFullOpen = false;
+            colorDlg.AllowFullOpen = true;
             colorDlg.AnyColor = true;
             colorDlg.SolidColorOnly = false;
             colorDlg.Color = Color.Red;
