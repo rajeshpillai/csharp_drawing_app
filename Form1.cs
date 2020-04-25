@@ -28,6 +28,7 @@ namespace MyPaint_CSharp
             this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             g = canvas.CreateGraphics();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,7 +66,7 @@ namespace MyPaint_CSharp
                 /*Pen p = new Pen(new SolidBrush(Color.Red), 2);
 
                 // Draw line
-                g.DrawLine(p, new Point(x ?? e.X, y ?? e.Y), new Point(e.X, e.Y));
+                g.DrawLine(p, new Point(x, y), new Point(e.X, e.Y));
                 x = e.X;
                 y = e.Y;*/
             }
@@ -89,6 +90,21 @@ namespace MyPaint_CSharp
         private void frmMyPaint_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void canvas_Resize(object sender, EventArgs e)
+        {
+            canvas.Invalidate();
+        }
+
+        private void frmMyPaint_Resize(object sender, EventArgs e)
+        {
+            g = canvas.CreateGraphics();
+            canvas.Invalidate();
+        }
+
+        private void canvas_SizeChanged(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -35,16 +35,22 @@
             // 
             // canvas
             // 
+            this.canvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.canvas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.canvas.BackColor = System.Drawing.Color.White;
             this.canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.canvas.Location = new System.Drawing.Point(132, 12);
             this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(656, 426);
+            this.canvas.Size = new System.Drawing.Size(685, 447);
             this.canvas.TabIndex = 0;
+            this.canvas.SizeChanged += new System.EventHandler(this.canvas_SizeChanged);
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
             this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
             this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
+            this.canvas.Resize += new System.EventHandler(this.canvas_Resize);
             // 
             // btnRectangle
             // 
@@ -77,7 +83,9 @@
             this.Controls.Add(this.canvas);
             this.Name = "frmMyPaint";
             this.Text = "MyPaint";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMyPaint_Load);
+            this.Resize += new System.EventHandler(this.frmMyPaint_Resize);
             this.ResumeLayout(false);
 
         }
