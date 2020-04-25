@@ -59,6 +59,10 @@ namespace MyPaint_CSharp
             {
                 currentShape = new Line();
             }
+            else if (shape == "pencil")
+            {
+                currentShape = new Pencil();
+            }
 
             currentShape.StartPoint = new Point(x, y);
             currentShape.EndPoint = new Point(e.X - x, e.Y - y);
@@ -80,6 +84,10 @@ namespace MyPaint_CSharp
                 {
                     currentShape.EndPoint = new Point(e.X , e.Y);
                 } 
+                else if (shape == "pencil")
+                {
+                    currentShape.Points.Add(new Point(e.X, e.Y));
+                }
                 else
                 {
                     currentShape.EndPoint = new Point(e.X - x, e.Y - y);
@@ -127,6 +135,11 @@ namespace MyPaint_CSharp
         private void btnPen_Click(object sender, EventArgs e)
         {
             shape = "line";
+        }
+
+        private void btnPencil_Click(object sender, EventArgs e)
+        {
+            shape = "pencil";
         }
     }
 }

@@ -35,6 +35,7 @@
             this.btnBox = new System.Windows.Forms.ToolStripButton();
             this.btnEllipse = new System.Windows.Forms.ToolStripButton();
             this.btnLine = new System.Windows.Forms.ToolStripButton();
+            this.btnPencil = new System.Windows.Forms.ToolStripButton();
             this.toolBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +71,7 @@
             this.toolBox.AutoSize = false;
             this.toolBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.toolBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnPencil,
             this.btnLine,
             this.btnBox,
             this.btnEllipse});
@@ -109,6 +111,16 @@
             this.btnLine.Text = "Line";
             this.btnLine.Click += new System.EventHandler(this.btnPen_Click);
             // 
+            // btnPencil
+            // 
+            this.btnPencil.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnPencil.Image = ((System.Drawing.Image)(resources.GetObject("btnPencil.Image")));
+            this.btnPencil.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPencil.Name = "btnPencil";
+            this.btnPencil.Size = new System.Drawing.Size(64, 19);
+            this.btnPencil.Text = "Pencil";
+            this.btnPencil.Click += new System.EventHandler(this.btnPencil_Click);
+            // 
             // Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,6 +147,7 @@
         private System.Windows.Forms.ToolStripButton btnBox;
         private System.Windows.Forms.ToolStripButton btnEllipse;
         private System.Windows.Forms.ToolStripButton btnLine;
+        private System.Windows.Forms.ToolStripButton btnPencil;
     }
 }
 

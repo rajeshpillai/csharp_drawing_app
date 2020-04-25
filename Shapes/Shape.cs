@@ -9,6 +9,8 @@ namespace MyPaint_CSharp.Shapes
 {
     public abstract class Shape
     {
+        public List<Point> Points = new List<Point>();  // Currently used by Pencil. Refactor required.
+
         public Point StartPoint = new Point(0, 0);
         public Point EndPoint = new Point(0, 0);
 
