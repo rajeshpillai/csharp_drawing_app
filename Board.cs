@@ -30,8 +30,8 @@ namespace MyPaint_CSharp
         public Board()
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
+            //this.DoubleBuffered = true;   // This works only when drawing on form
+            //this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             g = canvas.CreateGraphics();
 
@@ -73,7 +73,7 @@ namespace MyPaint_CSharp
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            lblFooter.Text = "Mouse Move at : " + e.X.ToString() + ", " + e.Y.ToString();
+            //lblFooter.Text = "Mouse Move at : " + e.X.ToString() + ", " + e.Y.ToString();
 
             if (startPaint && shape != "")
             {
@@ -106,12 +106,13 @@ namespace MyPaint_CSharp
         }
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
-            g.Clear(Color.White);
+            //g.Clear(Color.White);
+            e.Graphics.Clear(Color.White);
             SolidBrush sb = new SolidBrush(Color.Yellow);
 
             foreach (var s in shapes)
             {
-                s.Paint(g);   
+                s.Paint(e.Graphics);   
             }
         }
 

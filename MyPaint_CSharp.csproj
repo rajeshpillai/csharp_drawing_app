@@ -57,6 +57,9 @@
     <Compile Include="Shapes\Ellipse.cs" />
     <Compile Include="Shapes\Box.cs" />
     <Compile Include="Shapes\Line.cs" />
+    <Compile Include="Shapes\MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Shapes\Pencil.cs" />
     <Compile Include="Shapes\Shape.cs" />
     <EmbeddedResource Include="Board.resx">

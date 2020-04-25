@@ -1,4 +1,6 @@
-﻿namespace MyPaint_CSharp
+﻿using MyPaint_CSharp.Shapes;
+
+namespace MyPaint_CSharp
 {
     partial class Board
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Board));
-            this.canvas = new System.Windows.Forms.Panel();
+            this.canvas = new MyPanel();
             this.lblFooter = new System.Windows.Forms.Label();
             this.toolBox = new System.Windows.Forms.ToolStrip();
             this.btnBox = new System.Windows.Forms.ToolStripButton();
