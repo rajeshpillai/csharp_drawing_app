@@ -30,15 +30,19 @@ namespace MyPaint_CSharp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Board));
             this.lblFooter = new System.Windows.Forms.Label();
             this.toolBox = new System.Windows.Forms.ToolStrip();
+            this.btnMakeTop = new System.Windows.Forms.ToolStripButton();
+            this.btnColorDialog = new System.Windows.Forms.ToolStripButton();
             this.btnPencil = new System.Windows.Forms.ToolStripButton();
             this.btnLine = new System.Windows.Forms.ToolStripButton();
             this.btnBox = new System.Windows.Forms.ToolStripButton();
             this.btnEllipse = new System.Windows.Forms.ToolStripButton();
+            this.btnExit = new System.Windows.Forms.ToolStripButton();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.canvas = new MyPaint_CSharp.Shapes.MyPanel();
-            this.btnColorDialog = new System.Windows.Forms.ToolStripButton();
             this.toolBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,17 +61,39 @@ namespace MyPaint_CSharp
             this.toolBox.AutoSize = false;
             this.toolBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.toolBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnMakeTop,
             this.btnColorDialog,
             this.btnPencil,
             this.btnLine,
             this.btnBox,
-            this.btnEllipse});
+            this.btnEllipse,
+            this.btnExit});
             this.toolBox.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolBox.Location = new System.Drawing.Point(0, 0);
             this.toolBox.Name = "toolBox";
             this.toolBox.Size = new System.Drawing.Size(66, 459);
             this.toolBox.TabIndex = 3;
             this.toolBox.Text = "toolStrip1";
+            // 
+            // btnMakeTop
+            // 
+            this.btnMakeTop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnMakeTop.Image = ((System.Drawing.Image)(resources.GetObject("btnMakeTop.Image")));
+            this.btnMakeTop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMakeTop.Name = "btnMakeTop";
+            this.btnMakeTop.Size = new System.Drawing.Size(64, 19);
+            this.btnMakeTop.Text = "Capture";
+            this.btnMakeTop.Click += new System.EventHandler(this.btnMakeTop_Click);
+            // 
+            // btnColorDialog
+            // 
+            this.btnColorDialog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnColorDialog.Image = ((System.Drawing.Image)(resources.GetObject("btnColorDialog.Image")));
+            this.btnColorDialog.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnColorDialog.Name = "btnColorDialog";
+            this.btnColorDialog.Size = new System.Drawing.Size(64, 19);
+            this.btnColorDialog.Text = "Color";
+            this.btnColorDialog.Click += new System.EventHandler(this.btnColorDialog_Click);
             // 
             // btnPencil
             // 
@@ -108,6 +134,20 @@ namespace MyPaint_CSharp
             this.btnEllipse.Text = "Ellipse";
             this.btnEllipse.Click += new System.EventHandler(this.btnEllipse_Click);
             // 
+            // btnExit
+            // 
+            this.btnExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
+            this.btnExit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(64, 19);
+            this.btnExit.Text = "E&xit";
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // canvas
             // 
             this.canvas.AutoScroll = true;
@@ -123,16 +163,6 @@ namespace MyPaint_CSharp
             this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 
-            // btnColorDialog
-            // 
-            this.btnColorDialog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnColorDialog.Image = ((System.Drawing.Image)(resources.GetObject("btnColorDialog.Image")));
-            this.btnColorDialog.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnColorDialog.Name = "btnColorDialog";
-            this.btnColorDialog.Size = new System.Drawing.Size(64, 19);
-            this.btnColorDialog.Text = "Color";
-            this.btnColorDialog.Click += new System.EventHandler(this.btnColorDialog_Click);
-            // 
             // Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,9 +171,14 @@ namespace MyPaint_CSharp
             this.Controls.Add(this.toolBox);
             this.Controls.Add(this.lblFooter);
             this.Controls.Add(this.canvas);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Board";
             this.Text = "MyPaint";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Board_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Board_FormClosed);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Board_Paint);
             this.Resize += new System.EventHandler(this.frmMyPaint_Resize);
             this.toolBox.ResumeLayout(false);
             this.toolBox.PerformLayout();
@@ -160,6 +195,9 @@ namespace MyPaint_CSharp
         private System.Windows.Forms.ToolStripButton btnPencil;
         private MyPanel canvas;
         private System.Windows.Forms.ToolStripButton btnColorDialog;
+        private System.Windows.Forms.ToolStripButton btnExit;
+        private System.Windows.Forms.ToolStripButton btnMakeTop;
+        private System.Windows.Forms.Timer timer;
     }
 }
 
