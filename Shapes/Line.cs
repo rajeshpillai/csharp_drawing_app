@@ -11,7 +11,7 @@ namespace MyPaint_CSharp.Shapes
     {
         public override void Paint(Graphics g)
         {
-            Pen p = new Pen(new SolidBrush(Color.Red), 2);
+            Pen p = new Pen(new SolidBrush(this.ForeColor), 2);
             // Draw line
             g.DrawLine(p, new Point(StartPoint.X, StartPoint.Y), new Point(EndPoint.X, EndPoint.Y));
         }

@@ -31,31 +31,15 @@ namespace MyPaint_CSharp
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Board));
-            this.canvas = new MyPaint_CSharp.Shapes.MyPanel();
             this.lblFooter = new System.Windows.Forms.Label();
             this.toolBox = new System.Windows.Forms.ToolStrip();
             this.btnPencil = new System.Windows.Forms.ToolStripButton();
             this.btnLine = new System.Windows.Forms.ToolStripButton();
             this.btnBox = new System.Windows.Forms.ToolStripButton();
             this.btnEllipse = new System.Windows.Forms.ToolStripButton();
+            this.canvas = new MyPaint_CSharp.Shapes.MyPanel();
             this.toolBox.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // canvas
-            // 
-            this.canvas.AutoScroll = true;
-            this.canvas.AutoScrollMinSize = new System.Drawing.Size(0, 447);
-            this.canvas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.canvas.BackColor = System.Drawing.Color.White;
-            this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.canvas.Location = new System.Drawing.Point(0, 0);
-            this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(816, 482);
-            this.canvas.TabIndex = 0;
-            this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
-            this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
-            this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
-            this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 
             // lblFooter
             // 
@@ -121,6 +105,21 @@ namespace MyPaint_CSharp
             this.btnEllipse.Size = new System.Drawing.Size(64, 19);
             this.btnEllipse.Text = "Ellipse";
             this.btnEllipse.Click += new System.EventHandler(this.btnEllipse_Click);
+            // 
+            // canvas
+            // 
+            this.canvas.AutoScroll = true;
+            this.canvas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.canvas.BackColor = System.Drawing.Color.White;
+            this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.canvas.Location = new System.Drawing.Point(0, 0);
+            this.canvas.Name = "canvas";
+            this.canvas.Size = new System.Drawing.Size(816, 482);
+            this.canvas.TabIndex = 0;
+            this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.canvas_Paint);
+            this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
+            this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
+            this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 
             // Board
             // 

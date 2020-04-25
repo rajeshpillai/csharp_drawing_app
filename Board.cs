@@ -21,11 +21,11 @@ namespace MyPaint_CSharp
         int ex = 0;
         int ey = 0;
 
-        Graphics g;
-
         List<Shape> shapes = new List<Shape>();
 
         Shape currentShape = new Ellipse();
+        Color fgColor = Color.Black;
+
 
         public Board()
         {
@@ -33,15 +33,12 @@ namespace MyPaint_CSharp
             //this.DoubleBuffered = true;   // This works only when drawing on form
             //this.SetStyle(ControlStyles.ResizeRedraw, true);
 
-            g = canvas.CreateGraphics();
-
         }
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
             startPaint = true;
             this.Text =   "Mouse Down at : " + e.X.ToString() + ", " + e.Y.ToString();
-            SolidBrush sb = new SolidBrush(Color.Yellow);
             x = e.X;
             y = e.Y;
 
@@ -64,6 +61,8 @@ namespace MyPaint_CSharp
                 currentShape = new Pencil();
             }
 
+            currentShape.ForeColor = fgColor;
+
             currentShape.StartPoint = new Point(x, y);
             currentShape.EndPoint = new Point(e.X - x, e.Y - y);
 
@@ -73,7 +72,7 @@ namespace MyPaint_CSharp
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            //lblFooter.Text = "Mouse Move at : " + e.X.ToString() + ", " + e.Y.ToString();
+            lblFooter.Text = "Mouse Move at : " + e.X.ToString() + ", " + e.Y.ToString();
 
             if (startPaint && shape != "")
             {
@@ -108,8 +107,7 @@ namespace MyPaint_CSharp
         {
             //g.Clear(Color.White);
             e.Graphics.Clear(Color.White);
-            SolidBrush sb = new SolidBrush(Color.Yellow);
-
+            
             foreach (var s in shapes)
             {
                 s.Paint(e.Graphics);   
@@ -119,7 +117,6 @@ namespace MyPaint_CSharp
 
         private void frmMyPaint_Resize(object sender, EventArgs e)
         {
-            g = canvas.CreateGraphics();
             canvas.Invalidate();
         }
 
@@ -141,6 +138,18 @@ namespace MyPaint_CSharp
         private void btnPencil_Click(object sender, EventArgs e)
         {
             shape = "pencil";
+
+            ColorDialog colorDlg = new ColorDialog();
+            colorDlg.AllowFullOpen = false;
+            colorDlg.AnyColor = true;
+            colorDlg.SolidColorOnly = false;
+            colorDlg.Color = Color.Red;
+
+            if (colorDlg.ShowDialog() == DialogResult.OK)
+            {
+
+                fgColor = colorDlg.Color;
+            }
         }
     }
 }
