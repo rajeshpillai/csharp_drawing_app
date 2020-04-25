@@ -68,6 +68,9 @@ namespace MyPaint_CSharp
             //this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             defaultFormBg = this.TransparencyKey;
+
+            ToTransparent();
+            ToTopMost();
         
         }
 
@@ -142,10 +145,9 @@ namespace MyPaint_CSharp
         }
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
-            //g.Clear(Color.White);
-            //e.Graphics.Clear(Color.White);
-            //e.Graphics.CompositingMode = CompositingMode.SourceCopy;
+            e.Graphics.CompositingMode = CompositingMode.SourceCopy;
             e.Graphics.CompositingQuality = CompositingQuality.GammaCorrected;
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             e.Graphics.Clear(this.BackColor);
 
             foreach (var s in shapes)
@@ -190,11 +192,8 @@ namespace MyPaint_CSharp
 
             if (colorDlg.ShowDialog() == DialogResult.OK)
             {
-
                 fgColor = colorDlg.Color;
             }
-
-
            
         }
 
@@ -225,7 +224,7 @@ namespace MyPaint_CSharp
             {
                 //this.TransparencyKey = defaultFormBg;
                 //this.Opacity = 1;
-                //this.Width = 66;
+                this.Width = 66;
             }
 
         }
@@ -242,5 +241,57 @@ namespace MyPaint_CSharp
         private void timer_Tick(object sender, EventArgs e)
         {
         }
+
+        public void ToTransparent()
+        {
+            UInt32 dwExStyle = GetWindowLong(this.Handle, -20);
+            SetWindowLong(this.Handle, -20, dwExStyle | 0x00080000);
+            SetLayeredWindowAttributes(this.Handle, 0x00FFFFFF, 1, 0x2);
+        }
+
+        public void ToTopMost()
+        {
+            SetWindowPos(this.Handle, (IntPtr)(-1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0020);
+        }
+
+        public void ToThrough()
+        {
+            UInt32 dwExStyle = GetWindowLong(this.Handle, -20);
+            //SetWindowLong(this.Handle, -20, dwExStyle | 0x00080000);
+            //SetWindowPos(this.Handle, (IntPtr)0, 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0004 | 0x0010 | 0x0020);
+            //SetLayeredWindowAttributes(this.Handle, 0x00FFFFFF, 1, 0x2);
+            SetWindowLong(this.Handle, -20, dwExStyle | 0x00080000 | 0x00000020);
+            //SetWindowPos(this.Handle, (IntPtr)(1), 0, 0, 0, 0, 0x0002 | 0x0001 | 0x0010 | 0x0020);
+        }
+
+
+
+
+        public const int GWL_EXSTYLE = -20;
+        public const int WS_EX_LAYERED = 0x80000;
+        public const int LWA_ALPHA = 0x2;
+        public const int LWA_COLORKEY = 0x1;
+
+
+        [DllImport("user32.dll")]
+        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern UInt32 GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, UInt32 dwNewLong);
+        [DllImport("user32.dll")]
+        public extern static bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
+        [DllImport("user32.dll", SetLastError = false)]
+        static extern IntPtr GetDesktopWindow();
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        private static extern short GetKeyState(int keyCode);
+
+        [DllImport("gdi32.dll")]
+        static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+        [DllImport("user32.dll")]
+        static extern IntPtr GetDC(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
     }
 }

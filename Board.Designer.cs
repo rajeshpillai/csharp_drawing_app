@@ -167,14 +167,15 @@ namespace MyPaint_CSharp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(816, 482);
             this.Controls.Add(this.toolBox);
             this.Controls.Add(this.lblFooter);
             this.Controls.Add(this.canvas);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.ForeColor = System.Drawing.Color.Black;
             this.Name = "Board";
             this.Text = "MyPaint";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Board_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Board_FormClosed);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Board_Paint);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyPaint_CSharp.Shapes;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -21,20 +22,21 @@ namespace MyPaint_CSharp
             var form = new Board();
 
 
-            form.WindowState = FormWindowState.Maximized;
-            form.Opacity = 0.5;
+            //form.WindowState = FormWindowState.Maximized;
+            //form.BackColor = SystemColors.Control;
+            //form.TransparencyKey = SystemColors.Control;
+            //form.Opacity = 0.2;
             //form.TopMost = true;
-            form.FormBorderStyle = FormBorderStyle.None;
+            //form.FormBorderStyle = FormBorderStyle.None;
 
-            var form2 = new Board();
-            form2.WindowState = FormWindowState.Normal;
-            form2.Opacity = 1;
-            form2.Width = 66;
-            form2.ControlBox = false;
-            form2.TopMost = false;
-            //form2.TopMost = true;
-            //form.Show();
+            ToolBox tool = new ToolBox();
+            tool.Width = 64;
+            //tool.TopMost = true;
+            
+
             Application.Run(form);
+            //Application.Run(new MultiFormContext(form));
+
 
         }
     }
