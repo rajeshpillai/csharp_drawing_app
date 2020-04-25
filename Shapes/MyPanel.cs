@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace MyPaint_CSharp.Shapes
 {
@@ -11,6 +12,8 @@ namespace MyPaint_CSharp.Shapes
                 System.Windows.Forms.ControlStyles.AllPaintingInWmPaint |
                 System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer,
                 true);
+
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
         }
     }
 }

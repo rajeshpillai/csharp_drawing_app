@@ -175,7 +175,6 @@ namespace MyPaint_CSharp
             this.MinimizeBox = false;
             this.Name = "Board";
             this.Text = "MyPaint";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Board_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Board_FormClosed);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Board_Paint);

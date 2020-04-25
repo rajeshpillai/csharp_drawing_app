@@ -20,16 +20,22 @@ namespace MyPaint_CSharp
 
             var form = new Board();
 
-            //form.BackColor = Color.White;
-            //form.TransparencyKey = form.BackColor;
-            //form.Bounds = Screen.PrimaryScreen.Bounds;
-            form.Opacity = 0.1;
-            form.TopMost = true;
-            //form.FormBorderStyle = FormBorderStyle.None;
-            //form.Width = 66;
 
+            form.WindowState = FormWindowState.Maximized;
+            form.Opacity = 0.5;
+            //form.TopMost = true;
+            form.FormBorderStyle = FormBorderStyle.None;
+
+            var form2 = new Board();
+            form2.WindowState = FormWindowState.Normal;
+            form2.Opacity = 1;
+            form2.Width = 66;
+            form2.ControlBox = false;
+            form2.TopMost = false;
+            //form2.TopMost = true;
+            //form.Show();
             Application.Run(form);
-            
+
         }
     }
 }

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -31,40 +32,7 @@ namespace MyPaint_CSharp
     public partial class Board : Form
     {
 
-        [DllImport("User32.dll")]
-        public static extern IntPtr GetDC(IntPtr hwnd);
-        [DllImport("User32.dll")]
-        public static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
 
-        //
-
-        [DllImport("user32.dll")]
-        public static extern bool GetCursorPos(out POINT lpPoint);
-
-
-        
-        [DllImport("user32.dll")]
-        static extern short GetAsyncKeyState(System.Windows.Forms.Keys vKey);
-
-        [DllImport("GDI32.dll")]
-        private static extern bool DeleteDC(int hdc);
-        [DllImport("GDI32.dll")]
-        private static extern bool DeleteObject(int hObject);
-        [DllImport("GDI32.dll")]
-        private static extern int SelectObject(int hdc, int hgdiobj);
-        [DllImport("User32.dll")]
-        private static extern int GetDesktopWindow();
-        [DllImport("User32.dll")]
-        private static extern int GetWindowDC(int hWnd);
-        [DllImport("GDI32.dll")]
-        private static extern int LineTo(int hdc, int x, int y);
-        [DllImport("GDI32.dll")]
-        private static extern int MoveToEx(int hdc, int x, int y, ref Point lppoint);
-        [DllImport("GDI32.dll")]
-        private static extern int CreatePen(int penstyle, int width, int color);
-        //
-
-        private IKeyboardMouseEvents m_Events;
 
         bool isCapturing = false;
 
@@ -100,104 +68,10 @@ namespace MyPaint_CSharp
             //this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             defaultFormBg = this.TransparencyKey;
-
-            timer.Interval = 100;
-            timer.Enabled = true;
-
-            SubscribeGlobal();
+        
         }
 
-        private void SubscribeGlobal()
-        {
-            Unsubscribe();
-            Subscribe(Hook.GlobalEvents());
-        }
-
-        private void Subscribe(IKeyboardMouseEvents events)
-        {
-            m_Events = events;
-
-            m_Events.MouseUp += OnMouseUp;
-            m_Events.MouseClick += OnMouseClick;
-            m_Events.MouseMove += HookManager_MouseMove;
-        }
-
-        private void Unsubscribe()
-        {
-            if (m_Events == null) return;
-            m_Events.MouseUp -= OnMouseUp;
-            m_Events.MouseClick -= OnMouseClick;
-            m_Events.MouseMove -= HookManager_MouseMove;
-        }
-
-        private void OnMouseUp(object sender, MouseEventArgs e)
-        {
-            Log(string.Format("MouseUp \t\t {0}\n", e.Button));
-        }
-
-        private void OnMouseClick(object sender, MouseEventArgs e)
-        {
-            Log(string.Format("MouseClick \t\t {0}\n", e.Button));
-        }
-
-        private void HookManager_MouseMove(object sender, MouseEventArgs e)
-        {
-            this.Text = string.Format("x={0}; y={1}", e.X, e.Y);
-        }
-
-        private void Log(string text)
-        {
-            if (IsDisposed) return;
-            Debug.WriteLine(text);
-        }
-
-        // Code for allowing clicking through of the form
-        protected override void WndProc(ref Message m)
-        {
-            const uint WM_NCHITTEST = 0x84;
-
-            const int HTTRANSPARENT = -1;
-            const int HTCLIENT = 1;
-            const int HTCAPTION = 2;
-            // ... or define an enum with all the values
-
-            if (m.Msg == WM_NCHITTEST)
-            {
-                // If it's the message we want, handle it.
-                if (true)   //todo
-                {
-                    // If we're drawing, we want to see mouse events like normal.
-                    m.Result = new IntPtr(HTCLIENT);
-                }
-                else
-                {
-                    // Otherwise, we want to pass mouse events on to the desktop,
-                    // as if we were not even here.
-                    m.Result = new IntPtr(HTTRANSPARENT);
-                }
-                return;  // bail out because we've handled the message
-            }
-
-            // Otherwise, call the base class implementation for default processing.
-            base.WndProc(ref m);
-        }
-
-        public static void DrawALine(int x1, int y1, int x2, int y2, int width, Color clr)
-        {
-            Point p = new Point();
-            int hdcSrc = GetWindowDC(GetDesktopWindow());
-            int newcolor = System.Drawing.ColorTranslator.ToWin32(clr);
-
-            int newpen = CreatePen(0, width, newcolor);
-            SelectObject(hdcSrc, newpen);
-            MoveToEx(hdcSrc, x1, y1, ref p);
-            LineTo(hdcSrc, x2, y2);
-            DeleteDC(hdcSrc);
-            DeleteObject(newpen);
-
-        }
-
-
+        
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
             startPaint = true;
@@ -270,6 +144,8 @@ namespace MyPaint_CSharp
         {
             //g.Clear(Color.White);
             //e.Graphics.Clear(Color.White);
+            //e.Graphics.CompositingMode = CompositingMode.SourceCopy;
+            e.Graphics.CompositingQuality = CompositingQuality.GammaCorrected;
             e.Graphics.Clear(this.BackColor);
 
             foreach (var s in shapes)
@@ -324,32 +200,6 @@ namespace MyPaint_CSharp
 
         private void Board_Paint(object sender, PaintEventArgs e)
         {
-             IntPtr desktopPtr = GetDC(IntPtr.Zero);
-             Graphics g = Graphics.FromHdc(desktopPtr);
-
-             SolidBrush b = new SolidBrush(Color.Red);
-             g.FillRectangle(b, new Rectangle(px, py, 10,10));
-
-             g.Dispose();
-             ReleaseDC(IntPtr.Zero, desktopPtr);
-
-
-            // temp
-            int x = Cursor.Position.X;
-            int y = Cursor.Position.Y;
-
-            POINT lpPoint;
-            GetCursorPos(out lpPoint);
-            // NOTE: If you need error handling
-            // bool success = GetCursorPos(out lpPoint);
-            // if (!success)
-
-            lblFooter.Text = "Mouse Move at : " + lpPoint.X.ToString() + ", " + lpPoint.Y.ToString();
-
-
-            DrawALine(px, py, x, y, 5, Color.Yellow);
-            px = x;
-            py = y;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -391,14 +241,6 @@ namespace MyPaint_CSharp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (Convert.ToBoolean(GetAsyncKeyState(Keys.Left)))
-            {
-                this.Text = "Left Button";
-            }
-            else
-            {
-                this.Text = "Other Button";
-            }
         }
     }
 }
