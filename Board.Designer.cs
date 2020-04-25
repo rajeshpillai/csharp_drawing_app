@@ -31,13 +31,13 @@ namespace MyPaint_CSharp
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Board));
-            this.canvas = new MyPanel();
+            this.canvas = new MyPaint_CSharp.Shapes.MyPanel();
             this.lblFooter = new System.Windows.Forms.Label();
             this.toolBox = new System.Windows.Forms.ToolStrip();
+            this.btnPencil = new System.Windows.Forms.ToolStripButton();
+            this.btnLine = new System.Windows.Forms.ToolStripButton();
             this.btnBox = new System.Windows.Forms.ToolStripButton();
             this.btnEllipse = new System.Windows.Forms.ToolStripButton();
-            this.btnLine = new System.Windows.Forms.ToolStripButton();
-            this.btnPencil = new System.Windows.Forms.ToolStripButton();
             this.toolBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +47,6 @@ namespace MyPaint_CSharp
             this.canvas.AutoScrollMinSize = new System.Drawing.Size(0, 447);
             this.canvas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.canvas.BackColor = System.Drawing.Color.White;
-            this.canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.canvas.Location = new System.Drawing.Point(0, 0);
             this.canvas.Name = "canvas";
@@ -84,6 +83,26 @@ namespace MyPaint_CSharp
             this.toolBox.TabIndex = 3;
             this.toolBox.Text = "toolStrip1";
             // 
+            // btnPencil
+            // 
+            this.btnPencil.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnPencil.Image = ((System.Drawing.Image)(resources.GetObject("btnPencil.Image")));
+            this.btnPencil.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPencil.Name = "btnPencil";
+            this.btnPencil.Size = new System.Drawing.Size(64, 19);
+            this.btnPencil.Text = "Pencil";
+            this.btnPencil.Click += new System.EventHandler(this.btnPencil_Click);
+            // 
+            // btnLine
+            // 
+            this.btnLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnLine.Image = ((System.Drawing.Image)(resources.GetObject("btnLine.Image")));
+            this.btnLine.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnLine.Name = "btnLine";
+            this.btnLine.Size = new System.Drawing.Size(64, 19);
+            this.btnLine.Text = "Line";
+            this.btnLine.Click += new System.EventHandler(this.btnPen_Click);
+            // 
             // btnBox
             // 
             this.btnBox.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -102,26 +121,6 @@ namespace MyPaint_CSharp
             this.btnEllipse.Size = new System.Drawing.Size(64, 19);
             this.btnEllipse.Text = "Ellipse";
             this.btnEllipse.Click += new System.EventHandler(this.btnEllipse_Click);
-            // 
-            // btnLine
-            // 
-            this.btnLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnLine.Image = ((System.Drawing.Image)(resources.GetObject("btnLine.Image")));
-            this.btnLine.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnLine.Name = "btnLine";
-            this.btnLine.Size = new System.Drawing.Size(64, 19);
-            this.btnLine.Text = "Line";
-            this.btnLine.Click += new System.EventHandler(this.btnPen_Click);
-            // 
-            // btnPencil
-            // 
-            this.btnPencil.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnPencil.Image = ((System.Drawing.Image)(resources.GetObject("btnPencil.Image")));
-            this.btnPencil.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPencil.Name = "btnPencil";
-            this.btnPencil.Size = new System.Drawing.Size(64, 19);
-            this.btnPencil.Text = "Pencil";
-            this.btnPencil.Click += new System.EventHandler(this.btnPencil_Click);
             // 
             // Board
             // 
@@ -142,14 +141,13 @@ namespace MyPaint_CSharp
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel canvas;
         private System.Windows.Forms.Label lblFooter;
         private System.Windows.Forms.ToolStrip toolBox;
         private System.Windows.Forms.ToolStripButton btnBox;
         private System.Windows.Forms.ToolStripButton btnEllipse;
         private System.Windows.Forms.ToolStripButton btnLine;
         private System.Windows.Forms.ToolStripButton btnPencil;
+        private MyPanel canvas;
     }
 }
 
