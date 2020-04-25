@@ -14,7 +14,7 @@ namespace MyPaint_CSharp
 {
     public partial class Board : Form
     {
-        string shape = "rectangle";
+        string shape = "ellipse";
         bool startPaint = false;
         int x = 0;
         int y = 0;
@@ -25,7 +25,7 @@ namespace MyPaint_CSharp
 
         List<Shape> shapes = new List<Shape>();
 
-        Shape currentShape = new Box();
+        Shape currentShape = new Ellipse();
 
         public Board()
         {
@@ -37,36 +37,36 @@ namespace MyPaint_CSharp
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            shape = "rectangle";
-        }
-
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
             startPaint = true;
             this.Text =   "Mouse Down at : " + e.X.ToString() + ", " + e.Y.ToString();
+            SolidBrush sb = new SolidBrush(Color.Yellow);
+            x = e.X;
+            y = e.Y;
+
+
             if (shape == "rectangle")
             {
-                SolidBrush sb = new SolidBrush(Color.Yellow);
-                x = e.X;
-                y = e.Y;
-
                 currentShape = new Box();
-                currentShape.StartPoint = new Point(x, y);
-                currentShape.EndPoint = new Point(e.X - x, e.Y - y);
-
-                shapes.Add(currentShape);
-
+            } 
+            else if (shape == "ellipse")
+            {
+                currentShape = new Ellipse();
 
             }
+            currentShape.StartPoint = new Point(x, y);
+            currentShape.EndPoint = new Point(e.X - x, e.Y - y);
+
+            shapes.Add(currentShape);
+
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
             lblFooter.Text = "Mouse Move at : " + e.X.ToString() + ", " + e.Y.ToString();
 
-            if (startPaint && shape == "rectangle")
+            if (startPaint && shape != "")
             {
                 ex = e.X;
                 ey = e.Y;
@@ -90,19 +90,14 @@ namespace MyPaint_CSharp
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             startPaint = false;
-
             
             x = -1;
             y = -1;
-            shape = "";
-
-            currentShape = null;
         }
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
             g.Clear(Color.White);
             SolidBrush sb = new SolidBrush(Color.Yellow);
-            //g.FillRectangle(sb, x, y, ex - x, ey - y);
 
             foreach (var s in shapes)
             {
@@ -110,15 +105,6 @@ namespace MyPaint_CSharp
             }
         }
 
-        private void frmMyPaint_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void canvas_Resize(object sender, EventArgs e)
-        {
-            canvas.Invalidate();
-        }
 
         private void frmMyPaint_Resize(object sender, EventArgs e)
         {
@@ -126,8 +112,14 @@ namespace MyPaint_CSharp
             canvas.Invalidate();
         }
 
-        private void canvas_SizeChanged(object sender, EventArgs e)
+        private void btnBox_Click(object sender, EventArgs e)
         {
+            shape = "rectangle";
+        }
+
+        private void btnEllipse_Click(object sender, EventArgs e)
+        {
+            shape = "ellipse";
         }
     }
 }
