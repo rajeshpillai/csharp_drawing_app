@@ -139,6 +139,11 @@ namespace MyPaint_CSharp
         {
             shape = "pencil";
 
+           
+        }
+
+        private void btnColorDialog_Click(object sender, EventArgs e)
+        {
             ColorDialog colorDlg = new ColorDialog();
             colorDlg.AllowFullOpen = false;
             colorDlg.AnyColor = true;

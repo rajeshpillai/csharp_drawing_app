@@ -38,6 +38,7 @@ namespace MyPaint_CSharp
             this.btnBox = new System.Windows.Forms.ToolStripButton();
             this.btnEllipse = new System.Windows.Forms.ToolStripButton();
             this.canvas = new MyPaint_CSharp.Shapes.MyPanel();
+            this.btnColorDialog = new System.Windows.Forms.ToolStripButton();
             this.toolBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +57,7 @@ namespace MyPaint_CSharp
             this.toolBox.AutoSize = false;
             this.toolBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.toolBox.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnColorDialog,
             this.btnPencil,
             this.btnLine,
             this.btnBox,
@@ -121,6 +123,16 @@ namespace MyPaint_CSharp
             this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 
+            // btnColorDialog
+            // 
+            this.btnColorDialog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnColorDialog.Image = ((System.Drawing.Image)(resources.GetObject("btnColorDialog.Image")));
+            this.btnColorDialog.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnColorDialog.Name = "btnColorDialog";
+            this.btnColorDialog.Size = new System.Drawing.Size(64, 19);
+            this.btnColorDialog.Text = "Color";
+            this.btnColorDialog.Click += new System.EventHandler(this.btnColorDialog_Click);
+            // 
             // Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,6 +159,7 @@ namespace MyPaint_CSharp
         private System.Windows.Forms.ToolStripButton btnLine;
         private System.Windows.Forms.ToolStripButton btnPencil;
         private MyPanel canvas;
+        private System.Windows.Forms.ToolStripButton btnColorDialog;
     }
 }
 
