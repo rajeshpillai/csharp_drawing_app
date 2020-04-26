@@ -30,7 +30,7 @@ namespace MyPaint_CSharp
             //form.FormBorderStyle = FormBorderStyle.None;
 
             ToolBox tool = new ToolBox();
-            tool.Width = 64;
+            tool.Width = 600;
             tool.TopMost = true;
             
 

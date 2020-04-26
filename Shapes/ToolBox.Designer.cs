@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnExit = new System.Windows.Forms.Button();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnExit
@@ -40,6 +42,11 @@
             this.btnExit.Text = "E&xit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // timer
+            // 
+            this.timer.Interval = 20;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // ToolBox
             // 
@@ -59,5 +66,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Timer timer;
     }
 }

@@ -55,6 +55,12 @@
     <Compile Include="Board.Designer.cs">
       <DependentUpon>Board.cs</DependentUpon>
     </Compile>
+    <Compile Include="HalloForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HalloForm.Designer.cs">
+      <DependentUpon>HalloForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MultiformContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
