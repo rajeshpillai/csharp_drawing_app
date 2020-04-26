@@ -36,18 +36,19 @@ namespace MyPaint_CSharp.Shapes
         private void timer_Tick(object sender, EventArgs e)
         {
             Point pt = Cursor.Position;
-            pt.Offset(-(_hallo.Width / 2), -(_hallo.Height / 2));
+            //pt.Offset(-(_hallo.Width / 2), -(_hallo.Height / 2));
             _hallo.Location = pt;
 
-            /*if (!_hallo.Visible)
+            if (!_hallo.Visible)
             {
-                _hallo.Show();
-            }*/
+              // _hallo.Show();
+            }
 
-            
+
             using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
             {
                 g.DrawEllipse(Pens.Red, pt.X - 10, pt.Y - 10, 20, 20);
+
             }
         }
     }

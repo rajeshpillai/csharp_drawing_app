@@ -1,4 +1,9 @@
-﻿using Gma.System.MouseKeyHook;
+﻿// References:
+//    https://stackoverflow.com/questions/2622612/c-sharp-cursor-highlighting-follower/2624564#2624564
+
+
+
+using Gma.System.MouseKeyHook;
 using MyPaint_CSharp.Shapes;
 using System;
 using System.Collections.Generic;
@@ -163,17 +168,21 @@ namespace MyPaint_CSharp
         }
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.Clear(this.BackColor);
-            
-            e.Graphics.CompositingMode = CompositingMode.SourceCopy;
-            e.Graphics.CompositingQuality = CompositingQuality.GammaCorrected;
-            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            Graphics g = e.Graphics; // Graphics.FromHwnd(IntPtr.Zero);  
+
+
+            g.Clear(this.BackColor);
+            g.CompositingMode = CompositingMode.SourceCopy;
+            g.CompositingQuality = CompositingQuality.GammaCorrected;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.SmoothingMode = SmoothingMode.HighQuality;
 
             foreach (var s in shapes)
             {
-                s.Paint(e.Graphics);   
+                s.Paint(g);   
             }
+
+            //g.Dispose(); // todo:
         }
 
 
