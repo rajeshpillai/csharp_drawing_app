@@ -35,7 +35,7 @@ namespace MyPaint_CSharp
             
 
             //Application.Run(form);
-            Application.Run(new MultiFormContext(form, tool));
+            Application.Run(new MultiFormContext(form));
 
 
         }

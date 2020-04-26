@@ -15,6 +15,8 @@ namespace MyPaint_CSharp.Shapes
         public Point StartPoint = new Point(0, 0);
         public Point EndPoint = new Point(0, 0);
 
+        public Boolean Dirty = false;
+
         abstract public void Paint(Graphics g);
 
     }

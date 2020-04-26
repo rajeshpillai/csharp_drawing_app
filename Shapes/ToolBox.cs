@@ -19,7 +19,7 @@ namespace MyPaint_CSharp.Shapes
 
             _hallo = new HalloForm();
 
-            timer.Enabled = true;
+            //timer.Enabled = true;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace MyPaint_CSharp.Shapes
 
             if (!_hallo.Visible)
             {
-              // _hallo.Show();
+              //_hallo.Show();
             }
 
 

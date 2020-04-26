@@ -146,6 +146,7 @@ namespace MyPaint_CSharp
             // 
             // timer
             // 
+            this.timer.Interval = 20;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // canvas

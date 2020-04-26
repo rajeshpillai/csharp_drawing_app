@@ -69,10 +69,11 @@ namespace MyPaint_CSharp
         public Board()
         {
             InitializeComponent();
-            //this.DoubleBuffered = true;   // This works only when drawing on form
-            //this.SetStyle(ControlStyles.ResizeRedraw, true);
 
             defaultFormBg = this.TransparencyKey;
+
+            timer.Enabled = true;
+            timer.Interval = 1000 / 30;
 
             //ToTransparent();
             //ToTopMost();
@@ -136,23 +137,24 @@ namespace MyPaint_CSharp
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
             //lblFooter.Text = "Mouse Move at : " + e.X.ToString() + ", " + e.Y.ToString();
-            px = e.X;
-            py = e.Y;
+            Point pt = Cursor.Position;
+            px = pt.X; //  e.X;
+            py = pt.Y; // e.Y;
 
             if (startPaint && shape != "")
             {
 
                 if (shape == "line")
                 {
-                    currentShape.EndPoint = new Point(e.X , e.Y);
+                    currentShape.EndPoint = new Point(px , py);
                 } 
                 else if (shape == "pencil")
                 {
-                    currentShape.Points.Add(new Point(e.X, e.Y));
+                    currentShape.Points.Add(new Point(px, py));
                 }
                 else
                 {
-                    currentShape.EndPoint = new Point(e.X - x, e.Y - y);
+                    currentShape.EndPoint = new Point(px - x, py - y);
                 }
 
                 canvas.Invalidate();
@@ -165,10 +167,12 @@ namespace MyPaint_CSharp
             
             x = -1;
             y = -1;
+
+            //currentShape.Dirty = true;
         }
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics; // Graphics.FromHwnd(IntPtr.Zero);  
+            /*Graphics g = e.Graphics; // Graphics.FromHwnd(IntPtr.Zero);  
 
 
             g.Clear(this.BackColor);
@@ -181,14 +185,13 @@ namespace MyPaint_CSharp
             {
                 s.Paint(g);   
             }
-
-            //g.Dispose(); // todo:
+            */
         }
 
 
         private void frmMyPaint_Resize(object sender, EventArgs e)
         {
-            canvas.Invalidate();
+            //canvas.Invalidate();
         }
 
         private void btnBox_Click(object sender, EventArgs e)
@@ -269,6 +272,18 @@ namespace MyPaint_CSharp
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            Point pt = Cursor.Position;
+
+            using (Graphics g = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                //g.DrawEllipse(Pens.Red, pt.X - 10, pt.Y - 10, 20, 20);
+                foreach (var s in shapes)
+                {
+                    s.Paint(g);
+                }
+
+            }
+
         }
 
         public void ToTransparent()
