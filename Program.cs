@@ -23,19 +23,19 @@ namespace MyPaint_CSharp
 
 
             //form.WindowState = FormWindowState.Maximized;
-            //form.BackColor = SystemColors.Control;
+            form.BackColor = Color.White;
             //form.TransparencyKey = SystemColors.Control;
-            //form.Opacity = 0.2;
+            form.Opacity = 0.1;
             //form.TopMost = true;
             //form.FormBorderStyle = FormBorderStyle.None;
 
             ToolBox tool = new ToolBox();
             tool.Width = 64;
-            //tool.TopMost = true;
+            tool.TopMost = true;
             
 
-            Application.Run(form);
-            //Application.Run(new MultiFormContext(form));
+            //Application.Run(form);
+            Application.Run(new MultiFormContext(form, tool));
 
 
         }

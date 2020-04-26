@@ -69,12 +69,30 @@ namespace MyPaint_CSharp
 
             defaultFormBg = this.TransparencyKey;
 
-            ToTransparent();
-            ToTopMost();
+            //ToTransparent();
+            //ToTopMost();
         
         }
 
-        
+
+        // Prevent window minimize
+        private const int WM_SYSCOMMAND = 0x0112;
+        private const int SC_MINIMIZE = 0xf020;
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_SYSCOMMAND)
+            {
+                if (m.WParam.ToInt32() == SC_MINIMIZE)
+                {
+                    m.Result = IntPtr.Zero;
+                    return;
+                }
+            }
+            base.WndProc(ref m);
+        }
+
+
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
             startPaint = true;
@@ -145,10 +163,12 @@ namespace MyPaint_CSharp
         }
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.Clear(this.BackColor);
+            
             e.Graphics.CompositingMode = CompositingMode.SourceCopy;
             e.Graphics.CompositingQuality = CompositingQuality.GammaCorrected;
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            e.Graphics.Clear(this.BackColor);
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
 
             foreach (var s in shapes)
             {

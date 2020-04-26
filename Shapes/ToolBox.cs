@@ -21,5 +21,11 @@ namespace MyPaint_CSharp.Shapes
         {
             Application.Exit();
         }
+
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            this.Focus();
+        }
     }
 }
